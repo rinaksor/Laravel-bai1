@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\homeController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\Admin\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,80 +15,28 @@ use App\Http\Controllers\homeController;
 |
 */
 
-Route::get('/', function () {
-    $html ='<h1>Hoc lap trinh tai Unicode</h1>';
-    return $html;
+//Clien Router
+Route::prefix('categories')->group(function(){
+    //Danh sach chuyen muc
+    Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
+
+    //lay chi tiet 1 chuyen muc (Ap dung show form sua chuyen muc)
+    Route::get('/edit/{id}', [CategoriesController::class, 'getCategory'])->name('categories.edit');
+
+    //Xu ly update chuyen muc
+    Route::post('/edit/{id}',[CategoriesController::class, 'updateCategory']);
+
+    //Hien thi form add du lieu
+    Route::get('/add', [CategoriesController::class, 'addCategory'])->name('categories.add');
+
+    //Xu ly them chuyen muc
+    Route::post('/add', [CategoriesController::class, 'handleAddCategory']);
+
+    //Xoa chuyen muc
+    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');;
 });
 
-// Route::get('unicode',function(){
-//     return 'Phuong thuc Get cua path /unicode';
-// });
-
-// Route::get('unicode', function(){
-//     return view('form');
-// });
-
-// Route::post('unicode', function(){
-//     return 'Phuong thuc Post cua path /unicode';
-// });
-
-// Route::put('unicode', function(){
-//     return 'Phuong thuc Put cua path /unicode';
-// });
-
-// Route::delete('unicode', function(){
-//     return 'Phuong thuc Delete cua path /unicode';
-// });
-
-// Route::patch('unicode', function(){
-//     return 'Phuong thuc Patch cua path /unicode';
-// });
-
-// Route::any('unicode', function(Request $request){
-//     return $request->method();
-// });
-
-// Route::get('show-form', function(){
-//     return view('form');
-// });
-
-//Route::redirect('unicode', 'show-form', 404);
-
-//Route::view('show-form', 'form');
-Route::get('/', 'App\Http\Controllers\homeController@index')->name('home');
-
-Route::get('/tin-tuc', 'homeController@getNews')->name('news');
-
-Route::get('/chuyen-muc', [homeController::class,'getCategories']);
-
-Route::prefix('admin')->middleware('checkPermission')->group(function(){
-
-    Route::get('tintuc/{id?}/{slug?}.html',function($id=null, $slug=null){
-        $content = 'Phuong thuc Get cua path /unicode voi tham so:';
-        $content.='id ='.$id.'<br/>';
-        $content.='slug = '.$slug;
-        return $content;
-    })->where('id', '\d+')->where('slug', '.+')->where('admin.tintuc');
-    
-    Route::get('show-form', function(){
-        return view('form');
-    })->name('admin.show-form');
-
-    Route::prefix('admin')->group(function(){
-        Route::get('/', function(){
-            return 'Danh sach san pham';
-        });
-
-        Route::get('/add', function(){
-            return 'Them san pham';
-        })->name('admin.products.add');
-
-        Route::get('edit', function(){
-            return 'sua san pham';
-        });
-
-        Route::get('delete', function(){
-            return 'Xoa san pham';
-        });
-    });
+//Adim routes
+Route::prefix('admin')->group(function(){
+    Route::resource('products', ProductsController::class);
 });
