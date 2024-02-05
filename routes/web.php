@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
+use App\Http\Controllers\Admin\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +15,10 @@ use App\Http\Controllers\Admin\ProductsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/', function(){
+    return '<h1 style="text-align: center;">Trang chu UNICODE</h1>';
+})->name('home');
 
 //Clien Router
 Route::prefix('categories')->group(function(){
@@ -37,6 +42,7 @@ Route::prefix('categories')->group(function(){
 });
 
 //Adim routes
-Route::prefix('admin')->group(function(){
-    Route::resource('products', ProductsController::class);
+Route::middleware('auth.admin')->prefix('admin')->group(function(){
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::resource('products', ProductsController::class)->middleware('auth.admin.product');
 });
