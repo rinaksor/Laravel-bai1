@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\Admin\ProductsController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\homeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +17,7 @@ use App\Http\Controllers\Admin\DashboardController;
 |
 */
 
-Route::get('/', function(){
-    return '<h1 style="text-align: center;">Trang chu UNICODE</h1>';
-})->name('home');
+Route::get('/', [homeController::class, 'index'])->name('home');
 
 //Clien Router
 Route::prefix('categories')->group(function(){
@@ -40,6 +39,8 @@ Route::prefix('categories')->group(function(){
     //Xoa chuyen muc
     Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');;
 });
+
+Route::get('san-pham/{id}',[homeController::class, 'getProductDetail']);
 
 //Adim routes
 Route::middleware('auth.admin')->prefix('admin')->group(function(){
