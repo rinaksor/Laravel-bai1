@@ -17,10 +17,10 @@ use App\Http\Controllers\homeController;
 |
 */
 
-Route::get('/', [homeController::class, 'index'])->name('home');
+Route::get('/', [homeController::class, 'index'])->name('home')->middleware('auth.admin');
 
 //Clien Router
-Route::prefix('categories')->group(function(){
+Route::middleware('auth.admin')->prefix('categories')->group(function(){
     //Danh sach chuyen muc
     Route::get('/', [CategoriesController::class, 'index'])->name('categories.list');
 
