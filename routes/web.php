@@ -37,7 +37,13 @@ Route::middleware('auth.admin')->prefix('categories')->group(function(){
     Route::post('/add', [CategoriesController::class, 'handleAddCategory']);
 
     //Xoa chuyen muc
-    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');;
+    Route::delete('/delete/{id}', [CategoriesController::class, 'deleteCategory'])->name('categories.delete');
+
+    //Hien thi form upload
+    Route::get('/upload', [CategoriesController::class, 'getFile']);
+
+    //Xu ly file
+    Route::post('/upload', [CategoriesController::class, 'handleFile'])->name('categories.upload');
 });
 
 Route::get('san-pham/{id}',[homeController::class, 'getProductDetail']);
