@@ -21,6 +21,9 @@ class CheckloginAdmin
         }
         return $next($request);
     }
+    // if ($request->is('admin/*') || $request->is('admin)){
+        //echo '<h3>Khu vuc quan tri</h3>';
+    //}
 
     public function isLogin(){
         return false;
