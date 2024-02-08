@@ -14,11 +14,13 @@ class HomeController extends Controller
         <p>Kien thuc 2 </p>
         <p>Kien thuc 3 </p>';
 
-        $this->data['index']=1;
+        $this->data['index'] = 1;
 
         $this->data['dataArr'] = [];
 
-        $this->data['number'] =3;
+        $this->data['number'] = 3;
+        
+        $this->data['message'] = 'Dat hang thanh cong';
         
         return view('home', $this->data);
     }
