@@ -4,40 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\View;
-
-class homeController extends Controller
+class HomeController extends Controller
 {
-    //Action index()
+    public $data = [];
     public function index(){
-        $title = "Hoc lap trinh web tai unicode";
-        $content = 'Hoc lap trinh laravel 8.x tai unicode';
+        $this->data['welcome'] = 'Hoc lap trinh Laravel tai <b>Unicode</b>';
+        $this->data['content'] = '<h3>Chuong 1: Nhap mon Laravel</h3>
+        <p>Kien thuc 1 </p>
+        <p>Kien thuc 2 </p>
+        <p>Kien thuc 3 </p>';
 
-        // 'title'=>$title,
-        // 'content' =>$content,
+        $this->data['index']=1;
+
+        $this->data['dataArr'] = [];
+
+        $this->data['number'] =3;
         
-        //compact('title', 'content')
-
-        return view('home')->with(['title'=>$title, 'content'=>$content]); //load view home.php
-        //return View::make('home', compact('title', 'content'));
-        //return View::make('home')->with(['title'=>$title, 'content'=>$content]);
-        // $contentView = view('home')->render();
-        //$contentView = $contentView->render();
-        // dd($contentView);
-        //return $contentView;
-    
-    }
-
-    //Action getNews()
-    public function getNews(){
-        return 'Danh sach tin tuc';
-    }
-
-    public function getCategories(){
-        return 'Chuyen muc';
-    }
-
-    public function getProductDetail($id){
-        return view('clients.products.detail', compact('id'));
+        return view('home', $this->data);
     }
 }
