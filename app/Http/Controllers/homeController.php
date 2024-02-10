@@ -8,20 +8,13 @@ class HomeController extends Controller
 {
     public $data = [];
     public function index(){
-        $this->data['welcome'] = 'Hoc lap trinh Laravel tai <b>Unicode</b>';
-        $this->data['content'] = '<h3>Chuong 1: Nhap mon Laravel</h3>
-        <p>Kien thuc 1 </p>
-        <p>Kien thuc 2 </p>
-        <p>Kien thuc 3 </p>';
+        $this->data['title'] = 'Dao tao lap trinh web';
+        return view('clients.home', $this->data);
+    }
 
-        $this->data['index'] = 1;
+    public function products(){
+        $this->data['title'] = 'San pham';
 
-        $this->data['dataArr'] = [];
-
-        $this->data['number'] = 3;
-        
-        $this->data['message'] = 'Dat hang thanh cong';
-        
-        return view('home', $this->data);
+        return view('clients.products', $this->data);
     }
 }
