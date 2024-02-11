@@ -18,8 +18,9 @@ use Termwind\Components\Hr;
 |
 */
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/sanpham', [HomeController::class, 'products']);
+Route::get('/sanpham', [HomeController::class, 'products'])->name('product');
+
 
 
