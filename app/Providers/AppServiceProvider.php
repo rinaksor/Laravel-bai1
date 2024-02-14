@@ -21,15 +21,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        Blade::directive('datetime', function($expression){
-            $expression = trim($expression, '\"');
-            $expression = trim($expression, '"');;
-
-            $dateObject = date_create($expression);
-
-            if(!empty($dateObject)){
-                $dateFormat = $dateObject->format('d/m/Y H:i:s');
-                return $dateFormat;
+        Blade::if('env', function($value){ //@env('local)
+            //Tra ve gia tri boolen
+            if(config('app.env')== $value){
+                return true;
             }
             return false;
         });
