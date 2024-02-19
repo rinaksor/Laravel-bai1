@@ -10,7 +10,7 @@
 
 @section('content')
     <h1>SAN PHAM</h1>
-
+    <x-package-alert/></x-package-alert>
     @push('scripts')
     <script>
         console.log('Push lan 2');
@@ -32,3 +32,5 @@
         console.log('Push lan 1');
     </script>
 @endprepend
+
+8:30
