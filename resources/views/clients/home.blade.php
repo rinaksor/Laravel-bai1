@@ -22,6 +22,13 @@
     <p>Moi truong dev</p>
     @endenv
     
+    <x-alert type="info" :content="$message" data-icon="youtube"/>
+
+    {{-- <x-inputs.button /> --}}
+
+    {{-- <x-form-button/> --}}
+
+    {{-- <x-forms.button /> --}}
 @endsection
 
 @section('css')
