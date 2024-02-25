@@ -26,7 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
         Blade::if('env', function($value){ //@env('local)
             //Tra ve gia tri boolen
             if(config('app.env') === $value){
