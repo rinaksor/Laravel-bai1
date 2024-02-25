@@ -17,7 +17,7 @@ class CheckloginAdmin
     {
         //echo 'Middleware request';
         if(!$this->isLogin()){
-            return redirect(route('home'));
+            //return redirect(route('home'));
         }
         return $next($request);
     }
