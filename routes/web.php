@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 
 use Illuminate\Http\Response;
+use PhpParser\Node\Stmt\Return_;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,39 +33,18 @@ Route::put('/them-san-pham', [HomeController::class, 'putAdd']);
 Route::get('lay-thong-tin',[HomeController::class, 'getArr']);
 
 Route::get('demo-response', function(){
+   
+    return view('clients.demo-test');
+})->name('demo-respone');
 
-//$content = '<h2>Học lập trình tại Unicode</h2>';
-// $content = 'Học lập trình tại Unicode';
-//    $content = json_encode([
-//     'Item 1',
-//     'Item 2',
-//     'Item 3'
+Route::post('demo-response', function(Request $request){
+    //return 'submit ok';
+    if(!empty($request->username)){
+        //return route('demo-respone');
+        //return redirect(route('demo-respone'))->with('');
 
-//    ]);
-//     $response = (new Response($content))->header('Content-Type', 'application/json');
-//    dd($response);
-
-// $response = response();
-// dd($response);
-
-//$response = new Response('', 201);
-//$response = response('Học lập trình tại Unicode', 404);
-
-// $response = (new Response())->cookie('unicode', 'Training PHP - Laravel', 30);
-// return $response;
-
-//return view('clients.demo-test');
-
-    $response = response()
-    ->view('clients.demo-test', [
-        'title' => 'Hoc HTTP Response'
-    ], 201)
-    ->header('Content-Type', 'application/json')
-    ->header('API-Key', '123456');
-
-    return $response;
+        return back()->withInput()->with('mess', 'validate thanh cong');
+    }
+    return redirect(route('demo-respone'))->with('mess', 'validate khong thanh cong');
 });
 
-// Route::get('demo-response-2', function(Request $request){
-//     return $request->cookie('unicode');
-// });
