@@ -29,10 +29,21 @@
     {{-- <x-form-button/> --}}
 
     {{-- <x-forms.button /> --}}
+    <p><img src="https://carshop.vn/wp-content/uploads/2022/07/hinh-sieu-xe-1.jpg" alt=""></p>
+
+    <p><a href="{{ route('download-image', ['image' => public_path('storage/THM_zing.jpg')]) }}" class="btn btn-primary">Download ảnh</a></p>
+
+    <p><a href="{{ route('download-doc', ['file' => public_path('storage/demo_pdf.pdf')]) }}" class="btn btn-primary">Download tài liệu</a></p>
+
 @endsection
 
 @section('css')
-
+    <style>
+        img{
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 @endsection
 
 @section('js')
