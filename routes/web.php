@@ -48,3 +48,7 @@ Route::post('demo-response', function(Request $request){
     return redirect(route('demo-respone'))->with('mess', 'validate khong thanh cong');
 });
 
+Route::post('download-image',  [HomeController::class, 'downloadImage'])->name('download-image');
+
+Route::post('download-doc',  [HomeController::class, 'downloadDoc'])->name('download-doc');
+
