@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ProductRequest;
+
 class HomeController extends Controller
 {
     public $data = [];
@@ -27,27 +29,29 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(Request $request){
+    public function postAdd(ProductRequest $request){
 
-        $rules = [
-            'product_name' => 'required|min:6',
-            'product_price' => 'required|integer'
-        ];
+
+
+        // $rules = [
+        //     'product_name' => 'required|min:6',
+        //     'product_price' => 'required|integer'
+        // ];
 
         // $message = [
-        //     'product_name.required' => 'Truong :attribute san pham bat buoc phai nhap',
+        //         'product_name.required' => 'Truong :attribute san pham bat buoc phai nhap',
         //         'product_name.min' => 'Ten san pham khong duoc nho hon :min ki tu',
         //         'product_price.required' => 'Gia san pham bat buoc phai nhap',
         //         'product_price.integer' => 'Gia san pham phai la so'
         // ];
 
-        $message = [
-            'required' => 'Truong :attribute bat buoc phai nhap',
-            'min' => 'Truong :attribute khong duoc nho hon :min ky tu',
-            'integer' => 'Truong :attribute phai la so'
-        ];
+        // $message = [
+        //     'required' => 'Truong :attribute bat buoc phai nhap',
+        //     'min' => 'Truong :attribute khong duoc nho hon :min ky tu',
+        //     'integer' => 'Truong :attribute phai la so'
+        // ];
 
-        $request->validate($rules, $message);
+        // $request->validate($rules, $message);
 
 
         //xu ly viec them du lieu database
