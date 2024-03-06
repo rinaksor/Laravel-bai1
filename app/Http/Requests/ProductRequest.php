@@ -2,7 +2,12 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
+use PharIo\Manifest\Author;
+
+use Illuminate\Http\Client\RequestException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ProductRequest extends FormRequest
 {
@@ -11,7 +16,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -49,4 +54,32 @@ class ProductRequest extends FormRequest
             'product_price' => 'Gia san pham',
         ];
     }
+
+    protected function withVallidator($validator){
+        $validator->after(function ($validator){
+            if ($validator->errors()->count()>0){
+                $validator->errors()->add('msg', 'Da co loi xay ra, vui long kiem tra lai');
+            }
+            // if ($this->somethingElseIsInvalid()){
+            //     $validator->errors()->add('msg', 'Da co loi xay ra, vui long kiem tra lai');
+            // }
+        });
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'create_at' => date('Y-m-d H:i:s'),
+        ]);
+    }
+
+    protected function failedAuthorization()
+    {
+        //throw new AuthorizationException('Ban dang truy cap vao khu vuc cam');
+        //throw new HttpResponseException(redirect('/')->with('msg', 'Bạn không có quyền truy cập')->with('type', 'danger'));
+
+        throw new HttpResponseException(abort(404));
+
+
+    }   
 }
