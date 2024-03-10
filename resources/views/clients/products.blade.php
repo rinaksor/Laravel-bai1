@@ -9,6 +9,9 @@
 @endsection
 
 @section('content')
+    @if (section('msg'))
+    <div class="alert alert-success">{{session('msg')}}</div>
+    @endif
     <h1>SAN PHAM</h1>
     <x-package-alert/></x-package-alert>
     @push('scripts')
@@ -32,5 +35,3 @@
         console.log('Push lan 1');
     </script>
 @endprepend
-
-8:30
