@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests\ProductRequest;
 
+Use Illuminate\Support\Facades\Validator;
+
 class HomeController extends Controller
 {
     public $data = [];
@@ -29,27 +31,42 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(ProductRequest $request){
-
-        dd($request->all());
-
-        // $rules = [
-        //     'product_name' => 'required|min:6',
-        //     'product_price' => 'required|integer'
-        // ];
+    public function postAdd(Request $request){
+        $rules = [
+            'product_name' => 'required|min:6',
+            'product_price' => 'required|integer'
+        ];
 
         // $message = [
-        //         'product_name.required' => 'Truong :attribute san pham bat buoc phai nhap',
-        //         'product_name.min' => 'Ten san pham khong duoc nho hon :min ki tu',
-        //         'product_price.required' => 'Gia san pham bat buoc phai nhap',
-        //         'product_price.integer' => 'Gia san pham phai la so'
+        //     'product_name.required' => 'Ten san pham bat buoc phai nhap',
+        //     'product_name.min' => 'Ten san pham khong duoc nho hon :min ki tu',
+        //     'product_price.required' => 'Gia san pham bat buoc phai nhap',
+        //     'product_price.integer' => 'Gia san pham phai la so'
         // ];
 
-        // $message = [
-        //     'required' => 'Truong :attribute bat buoc phai nhap',
-        //     'min' => 'Truong :attribute khong duoc nho hon :min ky tu',
-        //     'integer' => 'Truong :attribute phai la so'
-        // ];
+        $message = [
+            'required' => 'Truong :attribute bat buoc phai nhap',
+            'min' => 'Truong :attribute khong duoc nho hon :min ky tu',
+            'integer' => 'Truong :attribute phai la so'
+        ];
+
+        $attributes = [
+                'product_name' => 'Ten san pham',
+                'product_price' => 'Gia san pham',
+        ];
+
+        $vatidator = Validator::make($request->all(), $rules, $message, $attributes);
+        //$vatidator->validate();
+
+        if ($vatidator->fails()){
+            $vatidator->errors()->add('msg', 'Vui long kiem tra lai du lieu');
+            //return 'Validate that bai';
+        }else{
+            //return 'Validate thanh cong';
+            return redirect()->route('product')->with('msg', 'Validate thanh cong');
+        }
+
+        return back()->withErrors($vatidator);
 
         // $request->validate($rules, $message);
 
