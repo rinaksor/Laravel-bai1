@@ -33,30 +33,24 @@ class HomeController extends Controller
         return view('clients.add', $this->data);
     }
 
-    public function postAdd(Request $request){
+    public function postAdd(ProductRequest $request){
+
+
         $rules = [
-            'product_name' => ['required' , 'min:6', function($attributes, $value,$fail){
+            //'product_name' => ['required' , 'min:6', function($attributes, $value,$fail){
                 // if($value!=mb_strtoupper($value, 'UTF-8')){
                 //     //xay ra loi
                 //     $fail('Truong :attribute khong hop le');
                 // }
-                isUppercase($value,'Truong :attribute khong hop le', $fail);
-            }],
-            'product_price' => ['required', 'integer']
-        ];
-
-        // $message = [
-        //     'product_name.required' => 'Ten san pham bat buoc phai nhap',
-        //     'product_name.min' => 'Ten san pham khong duoc nho hon :min ki tu',
-        //     'product_price.required' => 'Gia san pham bat buoc phai nhap',
-        //     'product_price.integer' => 'Gia san pham phai la so'
-        // ];
+                //isUppercase($value,'Truong :attribute khong hop le', $fail);
+                'product_name' => ['required', 'min:6'],
+                'product_price' => ['required', 'integer']
+                ];
 
         $message = [
             'required' => 'Truong :attribute bat buoc phai nhap',
             'min' => 'Truong :attribute khong duoc nho hon :min ky tu',
-            'integer' => 'Truong :attribute phai la so',
-            'uppercase' => 'Truong :attribute phai viet hoa'
+            'integer' => 'Truong :attribute phai la so'
         ];
 
         $attributes = [
@@ -64,18 +58,28 @@ class HomeController extends Controller
                 'product_price' => 'Gia san pham',
         ];
 
-        $vatidator = Validator::make($request->all(), $rules, $message, $attributes);
+        
+        
+        //$vatidator = Validator::make($request->all(), $rules, $message, $attributes);
+        
         //$vatidator->validate();
 
-        if ($vatidator->fails()){
-            $vatidator->errors()->add('msg', 'Vui long kiem tra lai du lieu');
-            //return 'Validate that bai';
-        }else{
-            //return 'Validate thanh cong';
-            return redirect()->route('product')->with('msg', 'Validate thanh cong');
-        }
+        //$request->validate($rules, $message);
+        
+        return response()->json(['status'=>'success']);
+        
+        
+        //$vatidator->validate();
 
-        return back()->withErrors($vatidator);
+        // if ($vatidator->fails()){
+        //     $vatidator->errors()->add('msg', 'Vui long kiem tra lai du lieu');
+        //     //return 'Validate that bai';
+        // }else{
+        //     //return 'Validate thanh cong';
+        //     return redirect()->route('product')->with('msg', 'Validate thanh cong');
+        // }
+
+        // return back()->withErrors($vatidator);
 
         // $request->validate($rules, $message);
 
