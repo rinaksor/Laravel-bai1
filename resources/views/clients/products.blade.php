@@ -19,7 +19,6 @@
         console.log('Push lan 2');
     </script>
 @endpush
-
 @endsection
 
 @section('css')

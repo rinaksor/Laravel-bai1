@@ -10,6 +10,9 @@ use App\Rules\Uppercase;
 
 Use Illuminate\Support\Facades\Validator;
 
+use  Illuminate\Support\Facades\DB;
+//use DB;
+
 class HomeController extends Controller
 {
     public $data = [];
@@ -17,6 +20,11 @@ class HomeController extends Controller
         $this->data['title'] = 'Dao tao lap trinh web';
 
         $this->data['message'] = 'Dang ky tai khoan thanh cong';
+
+        //$users = DB::select('SELECT * FROM users WHERE email=:email', ['email' => 'rina.web@gmail.com']);
+        //dd($users);
+
+
         return view('clients.home', $this->data);
     }
 

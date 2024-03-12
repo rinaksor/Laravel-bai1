@@ -9,6 +9,8 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Http\Response;
 use PhpParser\Node\Stmt\Return_;
 
+use App\Http\Controllers\UsersController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,3 +54,8 @@ Route::post('download-image',  [HomeController::class, 'downloadImage'])->name('
 
 Route::post('download-doc',  [HomeController::class, 'downloadDoc'])->name('download-doc');
 
+// Người dùng
+
+Route::prefix('users')->group(function(){
+    Route::get('/', [UsersController::class, 'index']);
+});
