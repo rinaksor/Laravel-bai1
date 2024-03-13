@@ -1,13 +1,16 @@
-@extends('layouts.client');
+@extends('layouts.client')
+
 @section('title')
-    {{$title}}
+    {{ $title }}
 @endsection
 
 @section('content')
-    @if (section('msg'))
-    <div class="alert alert-success">{{session('msg')}}</div>
+    @hasSection('msg')
+        <div class="alert alert-success">{{ session('msg') }}</div>
     @endif
-    <h1>{{$title}}</h1>
+    <h1>{{ $title }}</h1>
+    <a href="{{route('users.add')}}" class="btn btn-primary">Thêm người dùng</a>
+    <hr/>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -18,20 +21,20 @@
             </tr>
         </thead>
         <tbody>
-            @if(!empty($users))
-                @foreach ($users as $key => $item)
-
-            <tr>
-                <td>{{$key+1}}</td>
-                <td>{{$item->fullname}}</td>
-                <td>{{$item->email}}</td>
-                <td>{{$item->create_at}}</td>
-            </tr>
-            @endforeach
+            @if (!empty($usersList))
+                @foreach ($usersList as $key => $item)
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $item->fullname }}</td>
+                        <td>{{ $item->email }}</td>
+                        <td>{{ $item->create_at }}</td>
+                    </tr>
+                @endforeach
             @else
-            <tr>
-                <td colspan="4">Không có người dùng</td>
-            </tr>
+                <tr>
+                    <td colspan="4">Không có người dùng</td>
+                </tr>
+            @endif
         </tbody>
     </table>
 @endsection
