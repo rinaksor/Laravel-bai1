@@ -43,20 +43,32 @@ class Users extends Model
     public function learnQueryBuider(){
         DB::enableQueryLog();
         //Lấy tất cả bản ghi của table
-        $id = 20;
-        $lists = DB::table($this->table)
-        ->select('fullname as hoten', 'email', 'id', 'update_at')
+        //$id = 20;
+        //$lists = DB::table($this->table)
+        //->select('fullname as hoten', 'email', 'id', 'update_at')
         //->where('id', 18)
         //->where(function ($query) use ($id){
         //   $query->where('id', '<', $id)->orWhere('id', '>', $id);
         //})
-        ->select('fullname as hoten', 'like', '%rina%')
+        //->where('fullname as hoten', 'like', '%rina%')
         //whereBetween('id', [18, 20])
         //->whereNotBetween('id', [18, 20])
         //->whereNotIn('id', [18, 20])
-        ->whereNotNull('update_at')
-        ->get();
+        //->whereNotNull('update_at')
+        //->whereYear('create_at', '2021')
+        //->whereColum('create_at', '<>', 'update_at')
+
+
+        //->get();
         //->toSql();
+
+        //Join bang
+        $lists = DB::table('users')
+        ->select('users.*', 'groups.name as group_name')
+        ->rightJoin('groups', 'users.group_id', '=', 'groups.id')
+        ->get();
+
+
         dd($lists);
         $sql = DB::getQueryLog();
         dd($sql);
@@ -65,6 +77,3 @@ class Users extends Model
         $detail = DB::table($this->table)->first();
     }
 }
-
-
-//xem tới đoạn 14:37 và chwua chép theo
